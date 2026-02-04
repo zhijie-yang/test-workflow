@@ -12,8 +12,18 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  my-previous-config-job:
+    runs-on: ubuntu-latest
+    outputs:
+        key: ${{ steps.get-key.outputs.key }}
+    steps:
+      - id: get-key
+        run: |
+             echo "key=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_OUTPUT
+
   # This workflow contains a single job called "build"
   build:
+    needs: [my-previous-config-job]
     uses: ./.github/workflows/worker.yaml
     secrets:
-      passphrase: ${{ secrets.GITHUB_TOKEN }}
+      passphrase: ${{ needs.my-previous-config-job.outputs.key }}
