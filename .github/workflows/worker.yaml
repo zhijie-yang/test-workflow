@@ -17,7 +17,7 @@ jobs:
         run: |
           echo "timestamp=$(date "+%s")" >> $GITHUB_OUTPUT
 
-      - uses: actions/upload-artifacts@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.timestamp.outputs.timestamp }}
           path: test.txt
