@@ -11,16 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" >> test.txt
-
-      - id: timestamp
-        run: |
-          echo "timestamp=$(date "+%s")" >> $GITHUB_OUTPUT
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ${{ steps.timestamp.outputs.timestamp }}
-          path: test.txt
+          echo "secret: $(echo -n "${{secrets.passphrase}}" | sha256sum | cut -d' ' -f1)"
 
       - run: |
           exit 1
