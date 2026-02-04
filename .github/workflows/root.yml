@@ -15,3 +15,5 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     uses: ./.github/workflows/worker.yaml
+    secrets:
+      passphrase: ${{ secrets.GITHUB_TOKEN }}
