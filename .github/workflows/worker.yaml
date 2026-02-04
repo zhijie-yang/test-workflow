@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "${{ secrets.GITHUB_TOKEN }} >> test.txt
+          echo "${{ secrets.GITHUB_TOKEN }}" >> test.txt
 
       - id: timestamp
         run: |
