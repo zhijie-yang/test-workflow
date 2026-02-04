@@ -1,0 +1,26 @@
+name: Worker workflow
+
+on:
+  workflow_call:
+    secrets:
+      passphrase:
+        description: The input passphrase
+
+jobs:
+  simple-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "${{ secrets.GITHUB_TOKEN }} >> test.txt
+
+      - id: timestamp
+        run: |
+          echo "timestamp=$(date "+%s")" >> $GITHUB_OUTPUT
+
+      - uses: actions/upload-artifacts@v4
+        with:
+          name: ${{ steps.timestamp.outputs.timestamp }}
+          path: test.txt
+
+      - run: |
+          exit 1
